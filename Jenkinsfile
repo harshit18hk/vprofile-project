@@ -7,13 +7,24 @@ pipeline {
     }
 */	
     environment {
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
-        NEXUS_REPOSITORY = "vprofile-release"
-	NEXUS_REPOGRP_ID    = "vprofile-grp-repo"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
-        ARTVERSION = "${env.BUILD_ID}"
+       NEXUS_VERSION = "nexus3"
+       NEXUS_PROTOCOL = "http"
+       
+       
+    
+       
+       
+       
+       NEXUS_URL="172.31.15.189:8081"
+       
+       NEXUS_REPOSITORY = "release"
+       NEXUS_REPOGRP_ID    = "maven-group"
+       NEXUS_CREDENTIAL_ID = "nexus"
+        
+       ARTVERSION = "${env.BUILD_ID}"
+       scannerHome= tool "sonarqube4.7.0.2747"
+
+       
     }
 	
     stages{
@@ -55,12 +66,10 @@ pipeline {
 
         stage('CODE ANALYSIS with SONARQUBE') {
           
-		  environment {
-             scannerHome = tool 'sonarscanner4'
-          }
+		  
 
           steps {
-            withSonarQubeEnv('sonar-pro') {
+            withSonarQubeEnv('sonarqube-server') {
                sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
                    -Dsonar.projectName=vprofile-repo \
                    -Dsonar.projectVersion=1.0 \
@@ -86,7 +95,7 @@ pipeline {
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version} ARTVERSION";
                         nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
+                            nexusVersion: ,
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
                             groupId: NEXUS_REPOGRP_ID,
