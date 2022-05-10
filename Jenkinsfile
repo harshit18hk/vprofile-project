@@ -70,8 +70,8 @@ pipeline {
 
           steps {
             withSonarQubeEnv('sonarqube-server') {
-               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile-repo \
+               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=test \
+                   -Dsonar.projectName=test \
                    -Dsonar.projectVersion=1.0 \
                    -Dsonar.sources=src/ \
                    -Dsonar.java.binaries=src/test/java/com/visualpathit/account/controllerTest/ \
