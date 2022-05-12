@@ -71,7 +71,7 @@ pipeline {
           steps {
             withSonarQubeEnv('sonarqube-server') {
 		 sh '''mvn sonar:sonar \
-                 -Dsonar.projectKey=newtest \
+                 -Dsonar.projectKey=test2 \
                  -Dsonar.host.url=http://3.14.145.21 '''
                 
                   
