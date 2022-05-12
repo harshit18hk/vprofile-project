@@ -70,7 +70,7 @@ pipeline {
 
           steps {
             withSonarQubeEnv('sonarqube-server') {
-		    mvn sonar:sonar \
+		 sh 'mvn sonar:sonar '
                 
                   
                   
