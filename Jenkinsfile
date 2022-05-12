@@ -70,7 +70,10 @@ pipeline {
 
           steps {
             withSonarQubeEnv('sonarqube-server') {
-		    sh './mvnw clean sonar:sonar"
+		    mvn sonar:sonar \
+                  -Dsonar.projectKey=newtest \
+                  -Dsonar.host.url=http://3.14.145.21 \
+                  -Dsonar.login=sonarqube
                  
             }
 
