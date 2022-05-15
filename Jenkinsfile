@@ -54,8 +54,8 @@ pipeline {
                                 type: 'war'
                               
                             ]
-		          ],	    
-                        )
+		          ]	    
+                        );
                     } 
 		  
                 }
