@@ -80,7 +80,7 @@ pipeline {
                             repository: NEXUS_REPOSITORY,
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
-                                [artifactId: 'chkmt'
+                                [artifactId: 'chkmt',
                                 classifier: '',
 				 file: "target/chkmt-${mavenPom.version}.war",
                                 type: 'war'
