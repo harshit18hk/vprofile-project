@@ -9,19 +9,12 @@ pipeline {
     environment {
        NEXUS_VERSION = "nexus3"
        NEXUS_PROTOCOL = "http"
-       
-       
-    
-       
-       
-       
        NEXUS_URL="172.31.15.189:8081"
-       
        NEXUS_REPOSITORY = "release"
        NEXUS_REPOGRP_ID    = "maven-group"
        NEXUS_CREDENTIAL_ID = "nexus"
-        
        ARTVERSION = "${env.BUILD_ID}"
+       
        scannerHome= tool "sonarqube4.7.0.2747"
 
        
@@ -64,28 +57,15 @@ pipeline {
             }
         }
 
-        stage('CODE ANALYSIS with SONARQUBE') {
+        
           
 		  
 
-          steps {
-            withSonarQubeEnv('sonarqube-server') {
-		 sh '''mvn sonar:sonar \
-                 -Dsonar.projectName=test \
-                   -Dsonar.projectVersion=1.0 \
-                 -Dsonar.host.url=http://3.142.198.91 '''
+       
                 
                   
                   
-                 
-	     }
-		   timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate abortPipeline: true
-            }
-
-            
-          }
-        }
+           
 
         stage("Publish to Nexus Repository Manager") {
             steps {
