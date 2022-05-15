@@ -65,18 +65,12 @@ pipeline {
                 
                   
                   
-           
+            
 
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version} ARTVERSION";
+                        def mavenPom = readMavenPom 'pom.xml'
                         nexusArtifactUploader(
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
@@ -86,23 +80,18 @@ pipeline {
                             repository: NEXUS_REPOSITORY,
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
-                                [artifactId: pom.artifactId,
+                                [artifactId: 'chkmt'
                                 classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: pom.artifactId,
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
+				 file: "target/chkmt-${mavenPom.version}.war",
+                                type: 'war'
+                              
                             ]
                         );
                     } 
-		    else {
-                        error "*** File: ${artifactPath}, could not be found";
-                    }
+		  
                 }
             }
-        }
+        
 
 
     }
