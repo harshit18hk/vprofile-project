@@ -86,7 +86,7 @@ pipeline {
                                 type: 'war'
                               
                             ]
-		          ]	    
+		          ],	    
                         )
                     } 
 		  
